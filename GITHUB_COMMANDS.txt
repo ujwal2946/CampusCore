@@ -1,0 +1,149 @@
+================================================================================
+                    GITHUB PUSH COMMANDS GUIDE
+================================================================================
+
+This guide explains how to push your project files to GitHub.
+
+================================================================================
+PREREQUISITES
+================================================================================
+
+1. Install Git for Windows:
+   - Download from: https://git-scm.com/download/win
+   - Run the installer with default settings
+
+2. Create a GitHub account at: https://github.com
+
+3. Create a new repository on GitHub:
+   - Go to github.com
+   - Click "+" > "New repository"
+   - Enter repository name (e.g., CampusCore)
+   - Select "Public"
+   - Click "Create repository" (don't add README or .gitignore)
+
+================================================================================
+BASIC COMMANDS TO PUSH CODE
+================================================================================
+
+Step 1: Open Command Prompt (cmd) or Git Bash
+
+Step 2: Navigate to your project folder:
+   cd "path/to/your/project"
+   
+   Example:
+   cd "c:/Users/chiru/OneDrive/Desktop/student management/prj2"
+
+Step 3: Initialize Git (only once per project):
+   git init
+
+Step 4: Add all files to staging:
+   git add .
+
+   Or add specific file:
+   git add filename.py
+
+Step 5: Commit the files:
+   git commit -m "Your message here"
+   
+   Example:
+   git commit -m "Initial commit - Student Management System"
+
+Step 6: Rename default branch to main:
+   git branch -M main
+
+Step 7: Add remote repository (only once):
+   git remote add origin https://github.com/YOUR_USERNAME/REPO_NAME.git
+   
+   Example:
+   git remote add origin https://github.com/ujwal2946/CampusCore.git
+
+Step 8: Push to GitHub:
+   git push -u origin main
+
+================================================================================
+COMMON GIT COMMANDS
+================================================================================
+
+# Check status of files
+git status
+
+# See what files have changed
+git diff
+
+# Add specific folder
+git add foldername/
+
+# Add specific file
+git add filename.py
+
+# Unstage a file (before commit)
+git reset HEAD filename.py
+
+# See commit history
+git log
+
+# Create new branch
+git branch branch-name
+
+# Switch to branch
+git checkout branch-name
+
+# Merge branch to main
+git checkout main
+git merge branch-name
+
+# Pull latest changes from GitHub
+git pull origin main
+
+# Force push (use with caution!)
+git push -f origin main
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Q: "Permission denied" error?
+A: Make sure you're logged into GitHub in your browser
+
+Q: "Repository not found" error?
+A: Check that you created the repository on GitHub first
+
+Q: Want to update existing code?
+A: Just run:
+   git add .
+   git commit -m "Your update message"
+   git push
+
+Q: Forgot GitHub username or password?
+A: Go to github.com and log in to check
+
+Q: Want to clone a repository to your computer?
+A: Run:
+   git clone https://github.com/username/repo-name.git
+
+================================================================================
+YOUR REPOSITORY INFO
+================================================================================
+
+Repository URL: https://github.com/ujwal2946/CampusCore
+Local path: c:/Users/chiru/OneDrive/Desktop/student management/prj2
+
+================================================================================
+DEPLOYING TO RENDER (FREE)
+================================================================================
+
+After pushing to GitHub:
+
+1. Go to https://render.com and sign up
+2. Click "New" > "Web Service"
+3. Connect your GitHub account
+4. Select the "CampusCore" repository
+5. Configure:
+   - Name: campus-core
+   - Build Command: pip install -r requirements.txt
+   - Start Command: python app.py
+6. Click "Create Web Service"
+
+Wait 1-2 minutes for deployment, then get your live URL!
+
+================================================================================
