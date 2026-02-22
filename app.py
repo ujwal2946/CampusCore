@@ -1,15 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import sqlite3
 import smtplib
+import os
 from email.mime.text import MIMEText
 from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
+# Get the directory where app.py is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, 'database.db')
+
 # Database setup
 def init_db():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS users (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -121,7 +126,7 @@ def login():
     password = request.form['password']
     role = request.args.get('role', 'admin')
     
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute('SELECT id, password, role, student_id FROM users WHERE username=?', (username,))
     user = c.fetchone()
@@ -177,7 +182,7 @@ def dashboard():
             flash('Student information not found')
             return redirect(url_for('role_select'))
         
-        conn = sqlite3.connect('database.db')
+        conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
         
         # Get student info
@@ -211,7 +216,7 @@ def dashboard():
                              average_grade=average_grade)
     
     # Admin and Attendance staff dashboard
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
 
     # Total students
@@ -243,7 +248,7 @@ def dashboard():
 @app.route('/students', methods=['GET', 'POST'])
 @check_role('admin')
 def students():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     if request.method == 'POST':
         if 'add' in request.form:
@@ -379,7 +384,7 @@ def students():
 @app.route('/attendance', methods=['GET', 'POST'])
 @check_role('admin', 'attendance')
 def attendance():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     if request.method == 'POST':
         if 'mark' in request.form:
@@ -432,7 +437,7 @@ def attendance():
 @app.route('/grades', methods=['GET', 'POST'])
 @check_role('admin')
 def grades():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     if request.method == 'POST':
         if 'add' in request.form:

@@ -1,7 +1,12 @@
 import sqlite3
+import os
+
+# Get the directory where add_user.py is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, 'database.db')
 
 # Connect to the database
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect(DB_PATH)
 c = conn.cursor()
 
 # Check if user exists
